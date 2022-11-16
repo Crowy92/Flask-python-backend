@@ -1,16 +1,11 @@
-from unicodedata import name
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask import Blueprint, request, render_template, jsonify
+from ..database.pokemon import pokemons
 from werkzeug import exceptions
+# from ..models.listing import Listing
 
-app = Flask(__name__)
-CORS(app)
+main_routes = Blueprint("main", __name__)
 
-@app.route('/')
-def welcome():
-    return 'Welcome to Flask!'
-
-@app.route('/pokemon', methods=['GET', 'POST'])
+@main_routes.route('/pokemon', methods=['GET', 'POST'])
 def pokemons_handler():
     if request.method == 'GET':
         return jsonify(pokemons), 200
@@ -21,7 +16,7 @@ def pokemons_handler():
         pokemons.append(new_pokemon)
         return new_pokemon, 201
 
-@app.route('/pokemon/<int:pokemon_id>', methods=['GET', 'DELETE'])
+@main_routes.route('/pokemon/<int:pokemon_id>', methods=['GET', 'DELETE'])
 def pokemon_handler(pokemon_id):
     if request.method == 'GET':
         try: 
@@ -34,15 +29,3 @@ def pokemon_handler(pokemon_id):
             return jsonify(pokemons), 204
         except:
             raise exceptions.BadRequest(f"failed to delete pokemon with that id: {pokemon_id}")
-
-@app.errorhandler(exceptions.NotFound)
-def handle_404(err):
-    return jsonify({"message": f"Oops... {err}"}), 404
-
-@app.errorhandler(exceptions.InternalServerError)
-def handle_500(err):
-    return jsonify({"message": f"It's not you it's us"}), 500
-
-if __name__ == "__main__":
-    app.run(debug=True)
-
