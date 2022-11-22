@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <title>Pokemon</title>
+    <script defer src="index.js"></script>
+</head>
+<body>
+    <div class="alert alert-secondary">
+
+        <h1 id="pokemonName"></h1>
+        <img id="pokeImageFront">
+        <img id="pokeImageBack">
+        <h2>Its Moves:</h2>
+        <ul id="list">
+            
+        </ul>
+        <button id="nextPokemon">Next Pokemon</button>
+        <button id="deletePokemon">Delete Pokemon</button>
+    </div>
+    <form class="alert alert-primary" action="submit">
+        <label for="pname">Pokemon name:</label><br>
+        <input type="text" id="pname" name="pname" value="Sandshrew"><br>
+        <label for="move1">First Move:</label><br>
+        <input type="text" id="move1" name="move1" value="Scratch"><br><br>
+        <label for="move2">Second Move:</label><br>
+        <input type="text" id="move2" name="move2" value="Slash"><br><br>
+        <label for="move3">Third Move:</label><br>
+        <input type="text" id="move3" name="move3" value="Dig"><br><br>
+        <label for="sprite">Sprite Address:</label><br>
+        <input type="text" id="sprite" name="sprite" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/27.png"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

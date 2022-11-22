@@ -6,37 +6,48 @@ from werkzeug import exceptions
 app = Flask(__name__)
 CORS(app)
 
-lemurs = [
-    {
-        "id": 1,
-        "name": "larry"
+pokemons = [
+    { 
+        "id": 1, 
+        "name": 'Bulbasaur', 
+        "frontImg": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png", 
+        "moves": ["vine whip", "razor leaf", "tackle"] 
     },
-    {
-        "id": 2,
-        "name": "jemima"
-    }
-]
+    { 
+        "id": 2, 
+        "name": 'Charmander', 
+        "frontImg": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png", 
+        "moves": ["ember", "scratch", "leer"] 
+    },
+    { 
+        "id": 3, 
+        "name": 'Squirtle', 
+        "frontImg": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png", 
+        "moves": ["bubble", "water gun", "withdraw"]  
+    },
+];
+
 @app.route('/')
 def welcome():
     return 'Welcome to Flask!'
 
-@app.route('/lemur', methods=['GET', 'POST'])
-def lemurs_handler():
+@app.route('/pokemon', methods=['GET', 'POST'])
+def pokemons_handler():
     if request.method == 'GET':
-        return jsonify(lemurs), 200
+        return jsonify(pokemons), 200
     elif request.method == 'POST':
-        new_lemur = request.json
-        last_id = lemurs[-1]['id']
-        new_lemur['id'] = last_id + 1
-        lemurs.append(new_lemur)
-        return f"You created a lemur! IT's name is {new_lemur['name']}", 201
+        new_pokemon = request.json
+        last_id = pokemons[-1]['id']
+        new_pokemon['id'] = last_id + 1
+        pokemons.append(new_pokemon)
+        return new_pokemon, 201
 
-@app.route('/lemur/<int:lemur_id>', methods=['GET'])
-def lemur_handler(lemur_id):
+@app.route('/pokemon/<int:pokemon_id>', methods=['GET'])
+def pokemon_handler(pokemon_id):
     try: 
-        return next(lemur for lemur in lemurs if lemur['id'] == lemur_id)
+        return next(pokemon for pokemon in pokemons if pokemon['id'] == pokemon_id)
     except:
-        raise exceptions.BadRequest(f"We do not have a lemur with that id: {lemur_id}")
+        raise exceptions.BadRequest(f"We do not have a pokemon with that id: {pokemon_id}")
 
 @app.errorhandler(exceptions.NotFound)
 def handle_404(err):
